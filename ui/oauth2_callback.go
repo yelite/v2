@@ -122,7 +122,7 @@ func (h *handler) oauth2Callback(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, cookie.New(
 		cookie.CookieUserSessionID,
 		sessionToken,
-		config.Opts.HTTPS,
+		config.Opts.HTTPS || cookie.IsHTTPSOnUserSide(r),
 		config.Opts.BasePath(),
 	))
 

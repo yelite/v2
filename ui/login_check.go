@@ -1,4 +1,4 @@
-package ui  // import "miniflux.app/ui"
+package ui // import "miniflux.app/ui"
 
 import (
 	"net/http"
@@ -56,7 +56,7 @@ func (h *handler) checkLogin(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, cookie.New(
 		cookie.CookieUserSessionID,
 		sessionToken,
-		config.Opts.HTTPS,
+		config.Opts.HTTPS || cookie.IsHTTPSOnUserSide(r),
 		config.Opts.BasePath(),
 	))
 

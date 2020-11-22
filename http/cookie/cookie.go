@@ -51,3 +51,8 @@ func basePath(path string) string {
 	}
 	return path
 }
+
+// IsHTTPSOnUserSide determines if the request is from https-terminating reverse proxy
+func IsHTTPSOnUserSide(r *http.Request) bool {
+	return r.Header.Get("X-Forwarded-Proto") == "https"
+}

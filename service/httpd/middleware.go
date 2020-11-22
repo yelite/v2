@@ -19,10 +19,6 @@ func middleware(next http.Handler) http.Handler {
 		ctx := r.Context()
 		ctx = context.WithValue(ctx, request.ClientIPContextKey, clientIP)
 
-		if r.Header.Get("X-Forwarded-Proto") == "https" {
-			config.Opts.HTTPS = true
-		}
-
 		protocol := "HTTP"
 		if config.Opts.HTTPS {
 			protocol = "HTTPS"

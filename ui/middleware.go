@@ -78,7 +78,7 @@ func (m *middleware) handleAppSession(next http.Handler) http.Handler {
 				}
 			}
 
-			http.SetCookie(w, cookie.New(cookie.CookieAppSessionID, session.ID, config.Opts.HTTPS, config.Opts.BasePath()))
+			http.SetCookie(w, cookie.New(cookie.CookieAppSessionID, session.ID, config.Opts.HTTPS || cookie.IsHTTPSOnUserSide(r), config.Opts.BasePath()))
 		} else {
 			logger.Debug("[UI:AppSession] %s", session)
 		}
@@ -219,7 +219,7 @@ func (m *middleware) handleAuthProxy(next http.Handler) http.Handler {
 		http.SetCookie(w, cookie.New(
 			cookie.CookieUserSessionID,
 			sessionToken,
-			config.Opts.HTTPS,
+			config.Opts.HTTPS || cookie.IsHTTPSOnUserSide(r),
 			config.Opts.BasePath(),
 		))
 
